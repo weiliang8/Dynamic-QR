@@ -1,7 +1,7 @@
 //https://medium.com/@mohsinogen/how-to-generate-qr-codes-with-node-js-and-express-js-a098f9a38525
 // const QRCode = require("qrcode");
 
-const shortUrlPathGen = require("../utils/shortUrlPathGen")
+const shortUrlPathGen = require("../utils/generateUrlPath")
 const QR = require("../models/qr");
 
 exports.createQR = async (req, res, next) => {
@@ -16,9 +16,9 @@ exports.createQR = async (req, res, next) => {
 
       await newQR.save();
 
-      res.status(201).json({ message: 'QR code generated successfully' });
+      res.status(201).json({ status:"Success", message: 'QR code generated successfully', data:newQR });
   }catch (error) {
     console.log('Error generating QR code:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ status:"Failed", error: 'Internal Server Error' });
   }
 };

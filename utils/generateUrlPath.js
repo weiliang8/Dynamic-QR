@@ -1,6 +1,6 @@
 const random = require("random-string-generator");
 
-class shortUrlPathGen {
+class generateUrlPath {
   generate() {
     const pathLength = parseInt(process.env.SHORTURL_PATH_LENGTH);
     const shortUrlPath = random(pathLength);
@@ -9,4 +9,4 @@ class shortUrlPathGen {
   }
 }
 
-module.exports= shortUrlPathGen
+module.exports= generateUrlPath
