@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require("mongoose");
 const ip = require('ip')
 const cors = require("cors");
+const appError = require("./utils/appError")
+const errorHandler = require("./middleware/errorHandler")
 
 app.use(express.json());
 
@@ -25,8 +27,18 @@ app.use(cors());
 // });
 
 const userRouter = require("./routes/users");
+const qrRouter = require("./routes/qr")
+
 
 app.use("/users", userRouter);
+app.use("/qr",qrRouter);
+
+app.all("*",(req,res,next)=>{
+    next(new appError(`This path ${req.originalUrl} isn't on this server!`, 404));
+})
+
+app.use(errorHandler);
+
 
 function logger(req, res, next) {
     console.log(req.originalUrl);
